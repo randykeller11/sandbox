@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 import {
   useGLTF,
   useProgress,
@@ -10,18 +10,18 @@ import {
 
 import { Canvas } from "@react-three/fiber";
 
+import Model from "./components/Model";
+import Gui from "./components/Gui";
+import useModelStore from "./stores/useModelStore";
+
 function Loader() {
   const { progress } = useProgress();
   return <Html center>{progress} % loaded</Html>;
 }
-function Model(state, ...props) {
-  const { scene } = useGLTF(state.location);
-
-  return <primitive object={scene} scale={state.scale} {...props} />;
-}
 
 function App() {
-  const [test, setTest] = useState(0);
+  const modelStore = useModelStore();
+
   return (
     <div className="canvas">
       <Suspense fallback={null}>
@@ -31,32 +31,12 @@ function App() {
             <OrbitControls />
             <ambientLight intensity={0.9} />
 
-            <Model
-              location={
-                "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/druid/model.gltf"
-              }
-              scale={[2, 2, 2]}
-            />
+            {modelStore.models.length > 0 &&
+              modelStore.models.map((model, i) => <Model index={i} />)}
           </Suspense>
         </Canvas>
       </Suspense>
-      <div className="gui">
-        <h1
-          onClick={() => {
-            setTest(test - 1);
-          }}
-        >
-          ◀️
-        </h1>
-        <h1>{test}</h1>
-        <h1
-          onClick={() => {
-            setTest(test + 1);
-          }}
-        >
-          ▶️
-        </h1>
-      </div>
+      <Gui />
     </div>
   );
 }
