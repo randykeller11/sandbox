@@ -63,6 +63,14 @@ function Gui() {
               name="editType"
               onChange={(e) => {
                 setEditType(e.target.value);
+                let newTarget =
+                  modelStore.models[modelStore.target][e.target.value];
+                console.log(newTarget);
+                setLocalValue({
+                  x: newTarget.x,
+                  y: newTarget.y,
+                  z: newTarget.z,
+                });
               }}
             >
               <option value="pos">Position</option>
@@ -71,45 +79,92 @@ function Gui() {
               <option value="scale">Scale</option>
             </select>
           </div>
-          <div className="mainMenu__slider">
-            <h3>X</h3>
-            <input
-              value={localValue.x}
-              max={50}
-              min={-50}
-              type="range"
-              onChange={(e) => {
-                let target = modelStore.models[modelStore.target];
-                setLocalValue({ ...localValue, ["x"]: e.target.value });
-              }}
-            />
-          </div>
-          <div className="mainMenu__slider">
-            <h3>Y</h3>
-            <input
-              value={localValue.y}
-              max={50}
-              min={-50}
-              type="range"
-              onChange={(e) => {
-                let target = modelStore.models[modelStore.target];
-                setLocalValue({ ...localValue, ["y"]: e.target.value });
-              }}
-            />
-          </div>
-          <div className="mainMenu__slider">
-            <h3>Z</h3>
-            <input
-              value={localValue.z}
-              max={50}
-              min={-50}
-              type="range"
-              onChange={(e) => {
-                let target = modelStore.models[modelStore.target];
-                setLocalValue({ ...localValue, ["z"]: e.target.value });
-              }}
-            />
-          </div>
+          {editType != "scale" && (
+            <>
+              <div className="mainMenu__slider">
+                <h3>X</h3>
+                <input
+                  value={localValue.x}
+                  max={50}
+                  min={-50}
+                  type="range"
+                  onChange={(e) => {
+                    let target = modelStore.models[modelStore.target];
+                    setLocalValue({ ...localValue, ["x"]: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="mainMenu__slider">
+                <h3>Y</h3>
+                <input
+                  value={localValue.y}
+                  max={50}
+                  min={-50}
+                  type="range"
+                  onChange={(e) => {
+                    let target = modelStore.models[modelStore.target];
+                    setLocalValue({ ...localValue, ["y"]: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="mainMenu__slider">
+                <h3>Z</h3>
+                <input
+                  value={localValue.z}
+                  max={50}
+                  min={-50}
+                  type="range"
+                  onChange={(e) => {
+                    let target = modelStore.models[modelStore.target];
+                    setLocalValue({ ...localValue, ["z"]: e.target.value });
+                  }}
+                />
+              </div>
+            </>
+          )}
+          {editType === "scale" && (
+            <>
+              <div className="mainMenu__slider">
+                <h3>X</h3>
+                <input
+                  value={localValue.x}
+                  max={10}
+                  min={0}
+                  type="range"
+                  onChange={(e) => {
+                    let target = modelStore.models[modelStore.target];
+                    setLocalValue({ ...localValue, ["x"]: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="mainMenu__slider">
+                <h3>Y</h3>
+                <input
+                  value={localValue.y}
+                  max={10}
+                  min={0}
+                  type="range"
+                  onChange={(e) => {
+                    let target = modelStore.models[modelStore.target];
+                    setLocalValue({ ...localValue, ["y"]: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="mainMenu__slider">
+                <h3>Z</h3>
+                <input
+                  value={localValue.z}
+                  max={10}
+                  min={0}
+                  type="range"
+                  onChange={(e) => {
+                    let target = modelStore.models[modelStore.target];
+                    setLocalValue({ ...localValue, ["z"]: e.target.value });
+                  }}
+                />
+              </div>
+            </>
+          )}
         </div>
       )}
       {componentState === 1 && (
