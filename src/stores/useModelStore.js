@@ -33,11 +33,11 @@ let useModelStore = create((set) => ({
         },
       },
     })),
-  edit: (type, axis, value) =>
+  edit: (type, value) =>
     set((state) => ({
       models: {
         ...state.models,
-        [state.target]: { ...state.models[state.target][type], [axis]: value },
+        [state.target]: { ...state.models[state.target], [type]: value },
       },
     })),
   delete: (index) =>
