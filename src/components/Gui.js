@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useModelStore from "../stores/useModelStore";
 import "./Gui.css";
+import supabase from "../config/supabase";
 
 function Gui() {
   const modelStore = useModelStore();
@@ -14,6 +15,7 @@ function Gui() {
     z: 0,
   });
   const [isFirstRender, setIsFirstRender] = useState(true);
+  const [fileName, setFileName] = useState(null);
 
   useEffect(() => {
     isFirstRender && setIsFirstRender(false);
@@ -21,6 +23,27 @@ function Gui() {
       modelStore.edit(editType, localValue);
     }
   }, [localValue]);
+
+  useEffect(() => {
+    if (fileName) {
+      setUrl(
+        `https://bkfqeupznloapaerdplt.supabase.in/storage/v1/object/public/models/${fileName}`
+      );
+      setFileName(null);
+    }
+  }, [fileName]);
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    const { data, error } = await supabase.storage
+      .from("models")
+      .upload(file.name, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+    data && setFileName(file.name);
+    error && console.log(error);
+  };
 
   return (
     <div className="gui">
@@ -179,23 +202,24 @@ function Gui() {
           />
           <h3>URL</h3>
           <input
-            type="text"
-            value={url}
+            type="file"
             onChange={(e) => {
-              setUrl(e.target.value);
+              handleFileChange(e);
             }}
           />
 
-          <button
-            onClick={() => {
-              modelStore.add(url, name);
-              setUrl("");
-              setName("");
-              setComponentState(0);
-            }}
-          >
-            Add Model
-          </button>
+          {url && (
+            <button
+              onClick={() => {
+                modelStore.add(url, name);
+                setUrl("");
+                setName("");
+                setComponentState(0);
+              }}
+            >
+              Add Model
+            </button>
+          )}
         </div>
       )}
     </div>
