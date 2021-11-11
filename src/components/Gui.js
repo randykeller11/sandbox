@@ -8,6 +8,7 @@ function Gui() {
   const [name, setName] = useState("");
   const [editType, setEditType] = useState("Position");
   const [componentState, setComponentState] = useState(0);
+  const [testValue, setTestValue] = useState(3);
 
   return (
     <div className="gui">
@@ -32,8 +33,10 @@ function Gui() {
                 modelStore.setTarget(e.target.value);
               }}
             >
-              {modelStore.models.map((model) => (
-                <option value={model.index}>{model.name}</option>
+              {Object.keys(modelStore.models).map((model) => (
+                <option value={modelStore.models[model].index}>
+                  {modelStore.models[model].name}
+                </option>
               ))}
             </select>
           </div>
@@ -53,7 +56,15 @@ function Gui() {
           </div>
           <div className="mainMenu__slider">
             <h3>X</h3>
-            <input type="range" />
+            <input
+              value={testValue}
+              max={100}
+              min={-100}
+              type="range"
+              onChange={(e) => {
+                setTestValue(e.target.value);
+              }}
+            />
           </div>
           <div className="mainMenu__slider">
             <h3>Y</h3>

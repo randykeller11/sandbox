@@ -31,8 +31,10 @@ function App() {
             <OrbitControls />
             <ambientLight intensity={0.9} />
 
-            {modelStore.models.length > 0 &&
-              modelStore.models.map((model, i) => <Model index={i} />)}
+            {Object.keys(modelStore.models).length > 0 &&
+              Object.keys(modelStore.models).map((model, i) => (
+                <Model index={i} />
+              ))}
           </Suspense>
         </Canvas>
       </Suspense>
