@@ -9,14 +9,3 @@
   z-index: 1;
   position: relative;
 }
-
-.gui {
-  position: absolute;
-  z-index: 2;
-  height: 10vh;
-  width: 15vw;
-  background-color: orange;
-  right: 20px;
-  top: 20px;
-  display: flex;
-}

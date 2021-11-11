@@ -1,10 +1,38 @@
 .gui {
   position: absolute;
   z-index: 2;
-  height: 10vh;
-  width: 15vw;
   background-color: orange;
   right: 20px;
   top: 20px;
+  height: 20vh;
+  width: 15vw;
   display: flex;
+}
+.mainMenu {
+  height: 100%;
+  width: 100%;
+}
+.mainMenu__top {
+  display: flex;
+  justify-content: space-between;
+}
+.mainMenu__middle {
+  display: flex;
+  justify-content: space-evenly;
+}
+.mainMenu__editSelect {
+  display: flex;
+  justify-content: center;
+}
+.mainMenu__editSelect > select {
+  width: 60%;
+}
+
+.mainMenu__slider {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.addModel {
+  height: 30%;
 }

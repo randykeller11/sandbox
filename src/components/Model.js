@@ -6,8 +6,7 @@ function Model(state, ...props) {
   let storeTarget = modelStore.models.filter(
     (model) => model.index === state.index
   );
-  console.log(storeTarget);
-  const { scene } = useGLTF(storeTarget[0].location);
+  const { scene } = useGLTF(storeTarget[0].url);
 
   return (
     <primitive

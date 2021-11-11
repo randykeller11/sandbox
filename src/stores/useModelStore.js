@@ -1,27 +1,32 @@
 import create from "zustand";
 
 let useModelStore = create((set) => ({
-  needsRefresh: false,
+  target: 0,
   total: 1,
   models: [
     {
+      name: "Gandalf",
       index: 0,
-      location:
+      url:
         "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/druid/model.gltf",
       pos: [3, 0, 0],
       rot: [0, 0, 0],
       scale: [1, 1, 1],
     },
   ],
-  add: (newModel) =>
+  setTarget: (index) =>
     set((state) => ({
-      needsRefresh: true,
+      target: Number(index),
+    })),
+  add: (url, name) =>
+    set((state) => ({
       total: state.total + 1,
       models: [
         ...state.models,
         {
+          name: name,
           index: state.total,
-          location: newModel,
+          url: url,
           pos: [0, 0, 0],
           rot: [0, 0, 0],
           scale: [1, 1, 1],
