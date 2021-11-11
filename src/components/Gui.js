@@ -8,9 +8,11 @@ function Gui() {
   const [name, setName] = useState("");
   const [editType, setEditType] = useState("pos");
   const [componentState, setComponentState] = useState(0);
-  const [localValue, setLocalValue] = useState(
-    modelStore.models[modelStore.target]["pos"]
-  );
+  const [localValue, setLocalValue] = useState({
+    x: 3,
+    y: 0,
+    z: 0,
+  });
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
@@ -41,12 +43,17 @@ function Gui() {
               name="models"
               onChange={(e) => {
                 modelStore.setTarget(e.target.value);
+                let newTarget = modelStore.models[e.target.value][editType];
+                console.log(newTarget);
+                setLocalValue({
+                  x: newTarget.x,
+                  y: newTarget.y,
+                  z: newTarget.z,
+                });
               }}
             >
               {Object.keys(modelStore.models).map((model) => (
-                <option value={modelStore.models[model].index}>
-                  {modelStore.models[model].name}
-                </option>
+                <option value={model}>{modelStore.models[model].name}</option>
               ))}
             </select>
           </div>
@@ -56,12 +63,6 @@ function Gui() {
               name="editType"
               onChange={(e) => {
                 setEditType(e.target.value);
-                let newTarget = modelStore.models[modelStore.target];
-                setLocalValue({
-                  x: newTarget.x,
-                  y: newTarget.y,
-                  z: newTarget.z,
-                });
               }}
             >
               <option value="pos">Position</option>

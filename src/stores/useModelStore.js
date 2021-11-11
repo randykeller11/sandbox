@@ -16,7 +16,7 @@ let useModelStore = create((set) => ({
   },
   setTarget: (index) =>
     set((state) => ({
-      target: Number(index),
+      target: index,
     })),
   add: (url, name) =>
     set((state) => ({
