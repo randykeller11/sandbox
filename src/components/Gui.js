@@ -85,11 +85,29 @@ function Gui() {
           </div>
           <div className="mainMenu__slider">
             <h3>Y</h3>
-            <input type="range" />
+            <input
+              value={localValue.y}
+              max={50}
+              min={-50}
+              type="range"
+              onChange={(e) => {
+                let target = modelStore.models[modelStore.target];
+                setLocalValue({ ...localValue, ["y"]: e.target.value });
+              }}
+            />
           </div>
           <div className="mainMenu__slider">
             <h3>Z</h3>
-            <input type="range" />
+            <input
+              value={localValue.z}
+              max={50}
+              min={-50}
+              type="range"
+              onChange={(e) => {
+                let target = modelStore.models[modelStore.target];
+                setLocalValue({ ...localValue, ["z"]: e.target.value });
+              }}
+            />
           </div>
         </div>
       )}
